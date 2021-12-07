@@ -1,0 +1,23 @@
+---
+- name: Configure webserver
+  hosts: all
+
+  tasks:
+  - name: Install Apache package
+    become: yes
+    ansible.builtin.package:
+      name: httpd
+      state: present
+  - name: Start service httpd, if not started
+    become: yes
+    ansible.builtin.service:
+      name: httpd
+      state: started
+  - name: Add dummy html
+    become: yes
+    ansible.builtin.template:
+      src: './rsc/html-test.html.j2'
+      dest: '{{ html_file_path }}'
+      owner: apache
+      group: apache
+      mode: '0644'

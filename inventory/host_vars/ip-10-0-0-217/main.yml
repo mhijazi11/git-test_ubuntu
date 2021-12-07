@@ -1,0 +1,5 @@
+---
+test_file_path: '/home/{{ ansible_env.USER }}/test-file.txt'
+test_var: 'Test value'
+html_file_path: '/var/www/html/index.html'
+secret_variable: '{{ vault_secret_variable }}'
