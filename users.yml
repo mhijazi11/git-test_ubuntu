@@ -1,0 +1,29 @@
+---
+- name: Add new local user
+  hosts: ip-10-0-0-98
+
+  tasks:
+  - name: Add user testuser
+    become: yes
+    ansible.builtin.user:
+      name: testuser
+      generate_ssh_key: yes
+
+
+- name: Add new remote user
+  hosts: ip-10-0-0-217
+  
+  tasks:
+  - name: Add user testuser
+    become: yes
+    ansible.builtin.user:
+      name: testuser
+      uid: 1001
+      generate_ssh_key: yes
+  - name: Add testuser authorized key
+    become: yes
+    ansible.posix.authorized_key:
+      user: testuser
+      state: present
+      key: "{{ lookup('file', './rsc/testuser.pub') }}"
+
