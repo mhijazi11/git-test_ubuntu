@@ -1,6 +1,6 @@
 ---
 - name: Configure target box
-  hosts: all
+  hosts: ip-10-0-0-217
 
   tasks:
   - name: Ensure cowsay is installed
